@@ -67,7 +67,7 @@ dependencies {
     implementation("com.google.accompanist:accompanist-coil:0.15.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
     implementation("com.squareup.okhttp3:okhttp:4.9.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
     implementation("com.google.dagger:hilt-android:2.39.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
