@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">XKCD Thing</string>
+    <string name="new_comic_channel_name">New XKCD Comic</string>
 </resources>
