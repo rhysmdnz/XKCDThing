@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "417555860451",
+    "project_id": "xkcd-thing",
+    "storage_bucket": "xkcd-thing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417555860451:android:40ae4e845cfe9e3979eed6",
+        "android_client_info": {
+          "package_name": "nz.memes.xkcdthing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417555860451-qisnqur4sp7obp8geoa0pci63150au2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxPVZtRyM6sk82_8BQO8JsLEATaXAZSvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417555860451-qisnqur4sp7obp8geoa0pci63150au2e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
