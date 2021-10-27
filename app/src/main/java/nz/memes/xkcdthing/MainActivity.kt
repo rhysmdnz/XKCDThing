@@ -100,9 +100,9 @@ fun XKCDApp(xkcdViewModel: XKCDViewModel) {
             pagerState.currentPage
         }.collect {
             Log.i("MY_APP", "We moved the page to $it")
-            if (!it.equals(navController.currentDestination.arguments['comicId'])) {
-
-            }
+//            if (!it.equals(navController.currentDestination.arguments['comicId'])) {
+//
+//            }
         }
     }
     XKCDThingTheme {
