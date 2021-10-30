@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -34,7 +35,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.google.accompanist.coil.rememberCoilPainter
+import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -46,6 +47,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import nz.memes.xkcdthing.ui.theme.XKCDThingTheme
+import kotlin.math.max
 import kotlin.math.roundToInt
 
 @ExperimentalPagerApi
@@ -88,7 +90,7 @@ fun XKCDApp(xkcdViewModel: XKCDViewModel) {
     val pagerState = rememberPagerState()
     val navController = rememberNavController()
     val scope = rememberCoroutineScope()
-    navController.addOnDestinationChangedListener { _, destination, arguments ->
+    navController.addOnDestinationChangedListener { _, _, arguments ->
         val comicId = arguments!!.getInt("comicId", 1)
         scope.launch {
             Log.v(TAG, "are we changing? $comicId")
@@ -100,9 +102,10 @@ fun XKCDApp(xkcdViewModel: XKCDViewModel) {
             pagerState.currentPage
         }.collect {
             Log.i("MY_APP", "We moved the page to $it")
-//            if (!it.equals(navController.currentDestination.arguments['comicId'])) {
-//
-//            }
+            if (it+1 != navController.currentBackStackEntry!!.arguments!!.getInt("comicId")) {
+                Log.v(TAG, "The if condition thing hit")
+                navController.navigate("comic/${it+1}")
+            }
         }
     }
     XKCDThingTheme {
@@ -233,7 +236,7 @@ fun MainImage(url: String) {
     var offsetX by remember { mutableStateOf(0f) }
     var offsetY by remember { mutableStateOf(0f) }
     Image(
-        painter = rememberCoilPainter(url),
+        painter = rememberImagePainter(url),
         contentDescription = "The XKCD Image",
         modifier = Modifier
             .offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }
@@ -242,13 +245,13 @@ fun MainImage(url: String) {
                 scaleY = zoom,
             )
             .pointerInput(Unit) {
-//                detectTransformGestures(
-//                    onGesture = { _, pan, gestureZoom, _ ->
-//                        zoom = max(zoom * gestureZoom, 1f)
-//                        offsetX += pan.x * zoom
-//                        offsetY += pan.y * zoom
-//                    }
-//                )
+                detectTransformGestures(
+                    onGesture = { _, pan, gestureZoom, _ ->
+                        zoom = max(zoom * gestureZoom, 1f)
+                        offsetX += pan.x * zoom
+                        offsetY += pan.y * zoom
+                    }
+                )
             }
             .fillMaxSize()
     )

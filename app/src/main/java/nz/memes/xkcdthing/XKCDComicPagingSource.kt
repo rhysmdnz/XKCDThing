@@ -3,10 +3,6 @@ package nz.memes.xkcdthing
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.squareup.moshi.Moshi
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 
 class XKCDComicPagingSource(): PagingSource<Int, XKCDResponse>() {
 
@@ -29,7 +25,7 @@ class XKCDComicPagingSource(): PagingSource<Int, XKCDResponse>() {
             Log.v(TAG, "Yay load done!");
 
             return LoadResult.Page(
-                data = listOf(responseObj!!),
+                data = listOf(responseObj),
                 prevKey = if (nextPageNumber == 1) null else nextPageNumber-1, // Only paging forward.
                 nextKey = nextPageNumber+1,
                 itemsBefore = 0,
