@@ -16,3 +16,8 @@ jobs:
 
       - name: Unit Test
         run: ./gradlew testDebugUnitTest
+      - name: Run Android Lint
+        uses: dvdandroid/action-android-lint@master
+        with:
+          github_token: ${{ secrets.TOKEN_GITHUB }}
+          lint_xml_file: app/build/reports/lint-results.xml
