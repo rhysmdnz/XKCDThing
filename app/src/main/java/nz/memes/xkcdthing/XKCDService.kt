@@ -1,28 +1,32 @@
 package nz.memes.xkcdthing
 
-import retrofit2.Response
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import javax.inject.Singleton
 
 interface XKCDService {
 
     @GET("{comicId}/info.0.json")
     suspend fun getComic(@Path("comicId") comicId: Int) : XKCDResponse
+}
 
-    companion object {
-        var retrofitService: XKCDService? = null
-        fun getInstance() : XKCDService {
-            if (retrofitService == null) {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl("https://xkcd.com/")
-                    .addConverterFactory(MoshiConverterFactory.create())
-                    .build()
-                retrofitService = retrofit.create(XKCDService::class.java)
-            }
-            return retrofitService!!
-        }
+@Module
+@InstallIn(SingletonComponent::class)
+object RetrofitModule {
+    @Singleton
+    @Provides
+    fun provideRetrofit(): Retrofit = Retrofit.Builder()
+        .baseUrl("https://xkcd.com/")
+        .addConverterFactory(MoshiConverterFactory.create())
+        .build()
 
-    }
+    @Singleton
+    @Provides
+    fun provideXKCDService(retrofit: Retrofit): XKCDService = retrofit.create(XKCDService::class.java)
 }

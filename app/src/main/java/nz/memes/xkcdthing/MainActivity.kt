@@ -6,11 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.calculateZoom
+import androidx.compose.foundation.gestures.forEachGesture
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -20,11 +21,15 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.toSize
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -47,8 +52,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import nz.memes.xkcdthing.ui.theme.XKCDThingTheme
+import timber.log.Timber
 import kotlin.math.max
-import kotlin.math.roundToInt
 
 @ExperimentalPagerApi
 @AndroidEntryPoint
@@ -85,7 +90,6 @@ fun PreviewOverflowMenu() {
 @ExperimentalPagerApi
 @Composable
 fun XKCDApp(xkcdViewModel: XKCDViewModel) {
-    val TAG = "XKCDApp"
     val lazyComics: LazyPagingItems<XKCDResponse> = xkcdViewModel.comics.collectAsLazyPagingItems()
     val pagerState = rememberPagerState()
     val navController = rememberNavController()
@@ -93,7 +97,7 @@ fun XKCDApp(xkcdViewModel: XKCDViewModel) {
     navController.addOnDestinationChangedListener { _, _, arguments ->
         val comicId = arguments!!.getInt("comicId", 1)
         scope.launch {
-            Log.v(TAG, "are we changing? $comicId")
+            Timber.v("are we changing? $comicId")
             pagerState.animateScrollToPage(comicId - 1)
         }
     }
@@ -101,9 +105,9 @@ fun XKCDApp(xkcdViewModel: XKCDViewModel) {
         snapshotFlow {
             pagerState.currentPage
         }.collect {
-            Log.i("MY_APP", "We moved the page to $it")
+            Timber.i("We moved the page to $it")
             if (it+1 != navController.currentBackStackEntry!!.arguments!!.getInt("comicId")) {
-                Log.v(TAG, "The if condition thing hit")
+                Timber.v("The if condition thing hit")
                 navController.navigate("comic/${it+1}")
             }
         }
@@ -232,29 +236,51 @@ fun XKCDBottomBar(navController: NavController, nextId: Int, prevId: Int) {
 
 @Composable
 fun MainImage(url: String) {
-    var zoom by remember { mutableStateOf(1f) }
-    var offsetX by remember { mutableStateOf(0f) }
-    var offsetY by remember { mutableStateOf(0f) }
-    Image(
-        painter = rememberImagePainter(url),
-        contentDescription = "The XKCD Image",
-        modifier = Modifier
-            .offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }
-            .graphicsLayer(
-                scaleX = zoom,
-                scaleY = zoom,
-            )
-            .pointerInput(Unit) {
-                detectTransformGestures(
-                    onGesture = { _, pan, gestureZoom, _ ->
-                        zoom = max(zoom * gestureZoom, 1f)
-                        offsetX += pan.x * zoom
-                        offsetY += pan.y * zoom
+    var scale by remember { mutableStateOf(1f) }
+    var size by remember{ mutableStateOf(Size(0f, 0f))}
+    var width by remember {
+        mutableStateOf(0.dp)
+    }
+    var height by remember {
+        mutableStateOf(0.dp)
+    }
+
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .fillMaxHeight()
+        .onGloballyPositioned { coordinates ->
+            size = coordinates.size.toSize()
+        }) {
+
+        with(LocalDensity.current) {
+            Timber.v( "The width is ${size.width.toDp()}, the height is ${size.height.toDp()}")
+            Timber.v( "The scaled width is ${(size.width*scale).toDp()}, The scaled height is ${(size.width*scale).toDp()}")
+            width = (size.width*scale).toDp()
+            height = (size.height*scale).toDp()
+        }
+
+        Image(
+            painter = rememberImagePainter(url),
+            contentDescription = "The XKCD Image",
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .horizontalScroll(rememberScrollState())
+                .size(width = width, height = height)
+                .align(Alignment.Center)
+                .border(BorderStroke(2.dp, Color.Red))
+                .pointerInput(Unit) {
+                    forEachGesture {
+                        awaitPointerEventScope {
+                            awaitFirstDown()
+                            do {
+                                val event = awaitPointerEvent()
+                                scale = max(scale * event.calculateZoom(), 1f)
+                            } while (event.changes.any { it.pressed })
+                        }
                     }
-                )
-            }
-            .fillMaxSize()
-    )
+                }
+        )
+    }
 }
 
 @Composable

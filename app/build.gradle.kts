@@ -51,7 +51,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        useIR = true
     }
     buildFeatures {
         compose = true
@@ -63,15 +62,16 @@ android {
 
 dependencies {
     val roomVersion = "2.3.0"
-    val paging_version = "3.0.1"
+    val pagingVersion = "3.0.1"
 
 
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
 
+    implementation("com.jakewharton.timber:timber:5.0.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31")
-    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
+    implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("androidx.paging:paging-compose:1.0.0-alpha14")

@@ -1,6 +1,5 @@
 package nz.memes.xkcdthing
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -13,11 +12,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class XKCDViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
-    private val xkcdRepository: XKCDRepository,
+    private val xkcdService: XKCDService,
 ) : ViewModel() {
     val comics: Flow<PagingData<XKCDResponse>> = Pager(PagingConfig(pageSize = 20, enablePlaceholders = true)) {
-        XKCDComicPagingSource()
+        XKCDComicPagingSource(xkcdService)
     }.flow.cachedIn(viewModelScope)
 }
-
