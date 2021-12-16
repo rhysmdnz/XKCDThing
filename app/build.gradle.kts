@@ -65,7 +65,7 @@ dependencies {
 
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
