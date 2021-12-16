@@ -4,7 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import timber.log.Timber
 
-class XKCDComicPagingSource(private val xkcdService: XKCDService): PagingSource<Int, XKCDResponse>()  {
+class XKCDComicPagingSource(private val xkcdService: XKCDService) :
+    PagingSource<Int, XKCDResponse>() {
 
     override val jumpingSupported: Boolean
         get() = true
@@ -15,12 +16,12 @@ class XKCDComicPagingSource(private val xkcdService: XKCDService): PagingSource<
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, XKCDResponse> {
         try {
-            Timber.v("We do a load");
+            Timber.v("We do a load")
             // Start refresh at page 1 if undefined.
             val nextPageNumber = params.key ?: 1
             val responseObj = xkcdService.getComic(nextPageNumber)
 
-            Timber.v("Yay load done!");
+            Timber.v("Yay load done!")
 
             return LoadResult.Page(
                 data = listOf(responseObj),

@@ -2,20 +2,15 @@ package nz.memes.xkcdthing
 
 import android.app.Application
 import android.util.Log
+import com.google.firebase.BuildConfig
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
-
-
-
-
-
-
 @HiltAndroidApp
-class XKCDThingApplication: Application() {
+class XKCDThingApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {

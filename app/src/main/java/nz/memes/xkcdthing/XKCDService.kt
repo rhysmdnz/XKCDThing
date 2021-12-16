@@ -13,7 +13,7 @@ import javax.inject.Singleton
 interface XKCDService {
 
     @GET("{comicId}/info.0.json")
-    suspend fun getComic(@Path("comicId") comicId: Int) : XKCDResponse
+    suspend fun getComic(@Path("comicId") comicId: Int): XKCDResponse
 }
 
 @Module
@@ -28,5 +28,6 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideXKCDService(retrofit: Retrofit): XKCDService = retrofit.create(XKCDService::class.java)
+    fun provideXKCDService(retrofit: Retrofit): XKCDService =
+        retrofit.create(XKCDService::class.java)
 }

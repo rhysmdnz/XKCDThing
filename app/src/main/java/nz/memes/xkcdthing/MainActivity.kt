@@ -8,17 +8,48 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.calculateZoom
 import androidx.compose.foundation.gestures.forEachGesture
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.NavigateBefore
+import androidx.compose.material.icons.filled.NavigateNext
+import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material.icons.outlined.Feedback
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
@@ -82,7 +113,7 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun PreviewOverflowMenu() {
-    XKCDThingTheme() {
+    XKCDThingTheme {
         XKCDTopBar(0)
     }
 }
@@ -106,22 +137,31 @@ fun XKCDApp(xkcdViewModel: XKCDViewModel) {
             pagerState.currentPage
         }.collect {
             Timber.i("We moved the page to $it")
-            if (it+1 != navController.currentBackStackEntry!!.arguments!!.getInt("comicId")) {
+            if (it + 1 != navController.currentBackStackEntry!!.arguments!!.getInt("comicId")) {
                 Timber.v("The if condition thing hit")
-                navController.navigate("comic/${it+1}")
+                navController.navigate("comic/${it + 1}")
             }
         }
     }
     XKCDThingTheme {
         // A surface container using the 'background' color from the theme
-        Scaffold(topBar = { XKCDTopBar(pagerState.currentPage) }, bottomBar = { XKCDBottomBar(navController, pagerState.currentPage+2, pagerState.currentPage) }) {
+        Scaffold(
+            topBar = { XKCDTopBar(pagerState.currentPage) },
+            bottomBar = {
+                XKCDBottomBar(
+                    navController,
+                    pagerState.currentPage + 2,
+                    pagerState.currentPage
+                )
+            }
+        ) {
             NavHost(navController = navController, startDestination = "comic/{comicId}") {
                 composable(
                     "comic/{comicId}",
                     arguments = listOf(navArgument("comicId") { type = NavType.IntType })
                 ) {
                     Surface(color = MaterialTheme.colors.background) {
-                        HorizontalPager(count = 2000, state=pagerState) { page ->
+                        HorizontalPager(count = 2000, state = pagerState) { page ->
                             if (lazyComics.itemCount > 0) {
                                 lazyComics[page]?.let { it1 -> MainImage(it1.img) }
                                     ?: MainImage("https://media.istockphoto.com/vectors/shiny-red-traditional-cricket-ball-vector-id181668903?k=20&m=181668903&s=612x612&w=0&h=gor7cqAp4aOdkqReZMXgynUrnoJ6y4W_GzOblKM1VPI=")
@@ -154,8 +194,8 @@ fun XKCDTopBar(comicId: Int) {
                 }
                 DropdownMenu(
                     expanded = showMenu,
-                    onDismissRequest = { showMenu = false })
-                {
+                    onDismissRequest = { showMenu = false }
+                ) {
                     DropdownMenuItem(onClick = { }) {
                         Text("List all Comics")
                     }
@@ -175,11 +215,14 @@ fun XKCDTopBar(comicId: Int) {
                         Text("Save Comic Image")
                     }
                     DropdownMenuItem(onClick = {
-                        val share = Intent.createChooser(Intent().apply {
-                            action = Intent.ACTION_SEND
-                            putExtra(Intent.EXTRA_TEXT, "https://xkcd.com/${comicId}/")
-                            type = "text/plain"
-                        }, null)
+                        val share = Intent.createChooser(
+                            Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, "https://xkcd.com/$comicId/")
+                                type = "text/plain"
+                            },
+                            null
+                        )
 
                         startActivity(context, share, null)
                         showMenu = false
@@ -187,7 +230,8 @@ fun XKCDTopBar(comicId: Int) {
                         Text("Share Link")
                     }
                     DropdownMenuItem(onClick = {
-                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://xkcd.com/${comicId}/"))
+                        val browserIntent =
+                            Intent(Intent.ACTION_VIEW, Uri.parse("https://xkcd.com/$comicId/"))
                         startActivity(context, browserIntent, null)
                         showMenu = false
                     }) {
@@ -201,15 +245,22 @@ fun XKCDTopBar(comicId: Int) {
 
 @Composable
 fun XKCDBottomBar(navController: NavController, nextId: Int, prevId: Int) {
-    BottomAppBar() {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+    BottomAppBar {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier.fillMaxWidth()
+        ) {
             TextButton(onClick = { navController.navigate("comic/1") }, enabled = prevId != 0) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Default.SkipPrevious, "First")
                     Text(text = "First")
                 }
             }
-            TextButton(onClick = { navController.navigate("comic/${prevId}") }, enabled = prevId != 0) {
+            TextButton(
+                onClick = { navController.navigate("comic/$prevId") },
+                enabled = prevId != 0
+            ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Default.NavigateBefore, "Previous")
                     Text(text = "Prev")
@@ -218,7 +269,7 @@ fun XKCDBottomBar(navController: NavController, nextId: Int, prevId: Int) {
             TextButton(onClick = { /*TODO*/ }) {
                 Text(text = "Rand")
             }
-            TextButton(onClick = { navController.navigate("comic/${nextId}") }) {
+            TextButton(onClick = { navController.navigate("comic/$nextId") }) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "Next")
                     Icon(Icons.Default.NavigateNext, "Next")
@@ -237,7 +288,7 @@ fun XKCDBottomBar(navController: NavController, nextId: Int, prevId: Int) {
 @Composable
 fun MainImage(url: String) {
     var scale by remember { mutableStateOf(1f) }
-    var size by remember{ mutableStateOf(Size(0f, 0f))}
+    var size by remember { mutableStateOf(Size(0f, 0f)) }
     var width by remember {
         mutableStateOf(0.dp)
     }
@@ -245,18 +296,20 @@ fun MainImage(url: String) {
         mutableStateOf(0.dp)
     }
 
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .fillMaxHeight()
-        .onGloballyPositioned { coordinates ->
-            size = coordinates.size.toSize()
-        }) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .onGloballyPositioned { coordinates ->
+                size = coordinates.size.toSize()
+            }
+    ) {
 
         with(LocalDensity.current) {
-            Timber.v( "The width is ${size.width.toDp()}, the height is ${size.height.toDp()}")
-            Timber.v( "The scaled width is ${(size.width*scale).toDp()}, The scaled height is ${(size.width*scale).toDp()}")
-            width = (size.width*scale).toDp()
-            height = (size.height*scale).toDp()
+            Timber.v("The width is ${size.width.toDp()}, the height is ${size.height.toDp()}")
+            Timber.v("The scaled width is ${(size.width * scale).toDp()}, The scaled height is ${(size.width * scale).toDp()}")
+            width = (size.width * scale).toDp()
+            height = (size.height * scale).toDp()
         }
 
         Image(

@@ -64,7 +64,6 @@ android {
 dependencies {
     val roomVersion = "2.4.0"
 
-
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")

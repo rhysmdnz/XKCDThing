@@ -14,7 +14,8 @@ import javax.inject.Inject
 class XKCDViewModel @Inject constructor(
     private val xkcdService: XKCDService,
 ) : ViewModel() {
-    val comics: Flow<PagingData<XKCDResponse>> = Pager(PagingConfig(pageSize = 20, enablePlaceholders = true)) {
-        XKCDComicPagingSource(xkcdService)
-    }.flow.cachedIn(viewModelScope)
+    val comics: Flow<PagingData<XKCDResponse>> =
+        Pager(PagingConfig(pageSize = 20, enablePlaceholders = true)) {
+            XKCDComicPagingSource(xkcdService)
+        }.flow.cachedIn(viewModelScope)
 }
