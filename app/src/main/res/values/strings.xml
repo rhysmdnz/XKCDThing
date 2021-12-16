@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">XKCD Thing</string>
     <string name="new_comic_channel_name">New XKCD Comic</string>
+    <string name="mainTmpImg"><![CDATA[https://media.istockphoto.com/vectors/shiny-red-traditional-cricket-ball-vector-id181668903?k=20&m=181668903&s=612x612&w=0&h=gor7cqAp4aOdkqReZMXgynUrnoJ6y4W_GzOblKM1VPI=]]></string>
 </resources>

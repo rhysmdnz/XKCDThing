@@ -58,6 +58,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
@@ -80,11 +81,11 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.max
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import nz.memes.xkcdthing.ui.theme.XKCDThingTheme
 import timber.log.Timber
-import kotlin.math.max
 
 @ExperimentalPagerApi
 @AndroidEntryPoint
@@ -164,7 +165,7 @@ fun XKCDApp(xkcdViewModel: XKCDViewModel) {
                         HorizontalPager(count = 2000, state = pagerState) { page ->
                             if (lazyComics.itemCount > 0) {
                                 lazyComics[page]?.let { it1 -> MainImage(it1.img) }
-                                    ?: MainImage("https://media.istockphoto.com/vectors/shiny-red-traditional-cricket-ball-vector-id181668903?k=20&m=181668903&s=612x612&w=0&h=gor7cqAp4aOdkqReZMXgynUrnoJ6y4W_GzOblKM1VPI=")
+                                    ?: MainImage(stringResource(R.string.mainTmpImg))
                             }
                         }
                     }
@@ -306,8 +307,6 @@ fun MainImage(url: String) {
     ) {
 
         with(LocalDensity.current) {
-            Timber.v("The width is ${size.width.toDp()}, the height is ${size.height.toDp()}")
-            Timber.v("The scaled width is ${(size.width * scale).toDp()}, The scaled height is ${(size.width * scale).toDp()}")
             width = (size.width * scale).toDp()
             height = (size.height * scale).toDp()
         }

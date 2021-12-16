@@ -25,7 +25,8 @@ class XKCDComicPagingSource(private val xkcdService: XKCDService) :
 
             return LoadResult.Page(
                 data = listOf(responseObj),
-                prevKey = if (nextPageNumber == 1) null else nextPageNumber - 1, // Only paging forward.
+                // Only paging forward.
+                prevKey = if (nextPageNumber == 1) null else nextPageNumber - 1,
                 nextKey = nextPageNumber + 1,
                 itemsBefore = 0,
                 itemsAfter = 2000
