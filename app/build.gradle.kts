@@ -14,7 +14,7 @@ android {
         }
     }
     compileSdk = 31
-    buildToolsVersion = "30.0.3"
+    buildToolsVersion = "31.0.0"
 
     defaultConfig {
         applicationId = "nz.memes.xkcdthing"
