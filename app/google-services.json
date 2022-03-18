@@ -33,6 +33,78 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417555860451:android:40ae4e845cfe9e3979eed6",
+        "android_client_info": {
+          "package_name": "nz.memes.xkcdthing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417555860451-qisnqur4sp7obp8geoa0pci63150au2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxPVZtRyM6sk82_8BQO8JsLEATaXAZSvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417555860451-qisnqur4sp7obp8geoa0pci63150au2e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "417555860451-86nchl1qjjll6u7fmbp15s7uf1vaujat.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nz.memes.xkcdthing"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417555860451:android:e151569966325c1b79eed6",
+        "android_client_info": {
+          "package_name": "nz.memes.xkcdthing.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417555860451-qisnqur4sp7obp8geoa0pci63150au2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxPVZtRyM6sk82_8BQO8JsLEATaXAZSvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417555860451-qisnqur4sp7obp8geoa0pci63150au2e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "417555860451-86nchl1qjjll6u7fmbp15s7uf1vaujat.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nz.memes.xkcdthing"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
