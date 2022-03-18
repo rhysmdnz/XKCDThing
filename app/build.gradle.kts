@@ -10,14 +10,6 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        create("release") {
-            keyAlias = "key0"
-            storeFile = file("/Users/rhys/tmpsillykey")
-            storePassword = "secret"
-            keyPassword = "secret"
-        }
-    }
     compileSdk = 31
     buildToolsVersion = "31.0.0"
 
@@ -33,7 +25,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        signingConfig = signingConfigs.getByName("release")
 
         kapt {
             arguments {
