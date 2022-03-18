@@ -15,7 +15,7 @@ jobs:
           cache: gradle
 
       - name: Build app
-        run: ./gradlew build
+        run: ./gradlew assemble
       - name: Unit Test
         run: ./gradlew testDebugUnitTest
 #      - name: Run Android Lint
