@@ -24,7 +24,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import kotlin.math.max
 
 @Composable
@@ -53,7 +53,7 @@ fun MainImage(url: String) {
         }
 
         Image(
-            painter = rememberImagePainter(url),
+            painter = rememberAsyncImagePainter(url),
             contentDescription = "The XKCD Image",
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
