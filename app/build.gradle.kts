@@ -74,7 +74,7 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
     implementation("androidx.paging:paging-runtime-ktx:3.1.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
