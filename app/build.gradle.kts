@@ -10,13 +10,13 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
     buildToolsVersion = "31.0.0"
 
     defaultConfig {
         applicationId = "nz.memes.xkcdthing"
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 32
         versionCode = 2
         versionName = "0.1"
         multiDexEnabled = true
@@ -74,7 +74,7 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
     implementation("androidx.paging:paging-runtime-ktx:3.1.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
@@ -93,11 +93,11 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling:1.2.0-beta03")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
     implementation("androidx.activity:activity-compose:1.4.0")
-    implementation("io.coil-kt:coil-compose:1.4.0")
+    implementation("io.coil-kt:coil-compose:2.1.0")
     implementation("com.google.accompanist:accompanist-pager:0.23.1")
     implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2")
     implementation("androidx.navigation:navigation-compose:2.4.2")
     implementation("com.google.dagger:hilt-android:2.41")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
@@ -110,5 +110,5 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
     testImplementation("io.mockk:mockk:1.12.3")
     testImplementation("io.mockk:mockk-agent-jvm:1.12.3")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.2")
 }
