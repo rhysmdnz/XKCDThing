@@ -64,7 +64,7 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("androidx.room:room-runtime:2.4.3")
     implementation("androidx.room:room-ktx:2.4.3")
     implementation("androidx.work:work-runtime-ktx:2.7.1")
