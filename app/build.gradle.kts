@@ -71,7 +71,7 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.7.1")
     implementation("androidx.hilt:hilt-work:1.0.0")
     kapt("androidx.room:room-compiler:2.4.3")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
@@ -95,7 +95,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     implementation("androidx.activity:activity-compose:1.5.1")
     implementation("io.coil-kt:coil-compose:2.2.1")
-    implementation("com.google.accompanist:accompanist-pager:0.23.1")
+    implementation("com.google.accompanist:accompanist-pager:0.25.1")
     implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
