@@ -104,7 +104,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.2.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.42")
+    kapt("com.google.dagger:hilt-android-compiler:2.43.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
