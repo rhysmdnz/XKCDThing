@@ -71,7 +71,7 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.7.1")
     implementation("androidx.hilt:hilt-work:1.0.0")
     kapt("androidx.room:room-compiler:2.4.3")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
