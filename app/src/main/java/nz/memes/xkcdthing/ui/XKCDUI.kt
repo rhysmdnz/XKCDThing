@@ -45,7 +45,8 @@ fun XKCDApp(xkcdViewModel: XKCDViewModel) {
                 arguments = listOf(navArgument("comicId") { type = NavType.IntType })
             ) { backStackEntry ->
                 PagingComicView(
-                    xkcdViewModel = xkcdViewModel, navController = navController,
+                    xkcdViewModel = xkcdViewModel,
+                    navController = navController
                     // backStackEntry.arguments?.getInt("comicId") ?: 0
                 )
             }
@@ -88,8 +89,12 @@ fun PagingComicView(xkcdViewModel: XKCDViewModel, navController: NavHostControll
     Scaffold(
         topBar = {
             XKCDTopBar(
-                if (pagerState.currentPage < lazyComics.itemCount) lazyComics[pagerState.currentPage]?.num // ktlint-disable max-line-length
-                    ?: 0 else 0
+                if (pagerState.currentPage < lazyComics.itemCount) {
+                    lazyComics[pagerState.currentPage]?.num // ktlint-disable max-line-length
+                        ?: 0
+                } else {
+                    0
+                }
             )
         },
         bottomBar = {

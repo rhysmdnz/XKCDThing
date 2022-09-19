@@ -2,8 +2,8 @@ package nz.memes.xkcdthing.data.network
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import java.time.LocalDate
 import nz.memes.xkcdthing.data.XKCDComic
+import java.time.LocalDate
 
 @JsonClass(generateAdapter = true)
 data class XKCDResponse(

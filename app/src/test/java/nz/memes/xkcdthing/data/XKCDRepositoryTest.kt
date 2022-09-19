@@ -4,13 +4,13 @@ import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.just
 import io.mockk.mockk
-import java.time.LocalDate
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import nz.memes.xkcdthing.XKCDService
 import nz.memes.xkcdthing.data.local.XKCDDao
 import nz.memes.xkcdthing.data.network.XKCDResponse
 import org.junit.Test
+import java.time.LocalDate
 
 class XKCDRepositoryTest {
 

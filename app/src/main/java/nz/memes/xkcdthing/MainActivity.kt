@@ -21,7 +21,6 @@ class MainActivity : ComponentActivity() {
     private lateinit var analytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         analytics = Firebase.analytics
         FirebaseMessaging.getInstance().subscribeToTopic("new_xkcd_comic")

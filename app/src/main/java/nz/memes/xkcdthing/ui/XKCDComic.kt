@@ -46,7 +46,6 @@ fun MainImage(url: String) {
                 size = coordinates.size.toSize()
             }
     ) {
-
         with(LocalDensity.current) {
             width = (size.width * scale).toDp()
             height = (size.height * scale).toDp()

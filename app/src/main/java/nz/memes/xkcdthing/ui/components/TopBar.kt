@@ -29,7 +29,7 @@ fun OverflowMenu(content: @Composable () -> Unit) {
     }) {
         Icon(
             imageVector = Icons.Default.MoreVert,
-            contentDescription = "More Options",
+            contentDescription = "More Options"
         )
     }
     DropdownMenu(
