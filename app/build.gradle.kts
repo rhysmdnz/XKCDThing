@@ -100,7 +100,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("androidx.navigation:navigation-compose:2.5.2")
-    implementation("com.google.dagger:hilt-android:2.43.2")
+    implementation("com.google.dagger:hilt-android:2.44")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.2.1")
