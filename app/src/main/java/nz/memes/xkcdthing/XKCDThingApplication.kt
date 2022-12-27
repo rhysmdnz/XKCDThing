@@ -12,10 +12,10 @@ import androidx.work.WorkManager
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
-import timber.log.Timber.DebugTree
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 
 @HiltAndroidApp
 class XKCDThingApplication : Application(), Configuration.Provider {

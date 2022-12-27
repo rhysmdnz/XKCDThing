@@ -1,5 +1,6 @@
 package nz.memes.xkcdthing.data
 
+import javax.inject.Inject
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -7,7 +8,6 @@ import kotlinx.coroutines.coroutineScope
 import nz.memes.xkcdthing.XKCDService
 import nz.memes.xkcdthing.data.local.XKCDDao
 import nz.memes.xkcdthing.data.network.toXKCDComic
-import javax.inject.Inject
 
 class XKCDRepository @Inject constructor(
     private val xkcdDao: XKCDDao,

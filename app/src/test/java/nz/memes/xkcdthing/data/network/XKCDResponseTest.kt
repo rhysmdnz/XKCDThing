@@ -1,8 +1,8 @@
 package nz.memes.xkcdthing.data.network
 
+import java.time.LocalDate
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import java.time.LocalDate
 
 class XKCDResponseTest {
     @Test

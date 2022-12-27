@@ -8,10 +8,10 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import nz.memes.xkcdthing.data.XKCDComic
 import nz.memes.xkcdthing.data.XKCDRepository
-import javax.inject.Inject
 
 @HiltViewModel
 class XKCDViewModel @Inject constructor(
