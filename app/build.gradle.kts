@@ -110,6 +110,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.3.2")
     testImplementation("io.mockk:mockk:1.12.8")
-    testImplementation("io.mockk:mockk-agent-jvm:1.12.8")
+    testImplementation("io.mockk:mockk-agent-jvm:1.13.3")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 }
